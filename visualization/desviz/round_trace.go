@@ -43,9 +43,3 @@ func TraceDiffusion(p1, p2 uint64, key uint64) {
 		)
 	}
 }
-
-// Function TraceSingleBitAvalanche utilizes function TraceDiffusion to trace the avalanche effect
-// from a single bit flip at position bitPosition.
-func TraceSingleBitAvalanche(p uint64, bitPosition int, key uint64) {
-	TraceDiffusion(p, (p ^ (1 << bitPosition)), key)
-}

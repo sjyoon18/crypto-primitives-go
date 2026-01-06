@@ -1,6 +1,7 @@
 package des
 
-// Function EncryptBlock returns the encrypted 64-bit input block with the 64-bit key.
+// Function EncryptBlock applies DES encryption on a 64-bit plaintext
+// with the given 64-bit key and returns the 64-bit ciphertext.
 func EncryptBlock(block uint64, key uint64) uint64 {
 	subkeys := roundSubkeys(key)
 	permuted := initialPermutation(block)

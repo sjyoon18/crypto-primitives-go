@@ -2,6 +2,7 @@ package desviz
 
 import "fmt"
 
+// Function VisualizeBox visualizes the 6-bit to 4-bit mapping done by the corresponding S-box.
 func VisualizeSBox(input uint8, sbox [4][16]uint8) {
 	row := ((input & 0b100000) >> 4) | (input & 0b000001)
 	col := (input >> 1) & 0b1111
