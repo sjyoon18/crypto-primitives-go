@@ -21,7 +21,7 @@ func TraceDiffusion(p1, p2 uint64, key uint64) {
 
 	fmt.Println("Diffusion")
 	fmt.Println("-----------------------")
-	fmt.Printf("Round 0: %d bits differ\n", BitChanged(ip1, ip2))
+	fmt.Printf("Round 0: %d bits differ\n", HammingDistance(ip1, ip2))
 
 	for i := 0; i < 16; i++ {
 		nextL1 := R1
@@ -39,7 +39,7 @@ func TraceDiffusion(p1, p2 uint64, key uint64) {
 		fmt.Printf(
 			"Round %2d: %d bits differ\n",
 			i+1,
-			BitChanged(intermediate1, intermediate2),
+			HammingDistance(intermediate1, intermediate2),
 		)
 	}
 }

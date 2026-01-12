@@ -6,9 +6,9 @@ import (
 	"math/bits"
 )
 
-// Function BitChanged returns the number of different bits between 64-bit inputs a and b.
+// Function HammingDistance returns the number of different bits between 64-bit inputs a and b.
 // This is done by counting the ones in a XOR b.
-func BitChanged(a, b uint64) int {
+func HammingDistance(a, b uint64) int {
 	return bits.OnesCount64(a ^ b)
 }
 
@@ -21,7 +21,7 @@ func SingleBitFlipAvalanche(p uint64, bitPosition int, key uint64) int {
 	c1 := des.EncryptBlock(p, key)
 	c2 := des.EncryptBlock(p2, key)
 
-	return BitChanged(c1, c2)
+	return HammingDistance(c1, c2)
 }
 
 // Function DisplaySingleBitFlipAvalanche utilizes function SingleBitFlipAvalanche
