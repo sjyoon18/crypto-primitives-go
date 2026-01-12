@@ -5,7 +5,7 @@ package aes
 type State [4][4]byte
 
 // Function BytesToState builds and returns an AES state from the 16-byte input.
-func bytesToState(b [16]byte) State {
+func BytesToState(b [16]byte) State {
 	var s State
 	for i := 0; i < 16; i++ {
 		s[i%4][i/4] = b[i]
@@ -14,7 +14,7 @@ func bytesToState(b [16]byte) State {
 }
 
 // Function StateToBytes builds and returns a 16-byte output from the AES state input.
-func stateToBytes(s State) [16]byte {
+func StateToBytes(s State) [16]byte {
 	var b [16]byte
 	for i := 0; i < 16; i++ {
 		b[i] = s[i%4][i/4]

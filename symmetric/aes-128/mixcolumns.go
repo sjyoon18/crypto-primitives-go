@@ -2,7 +2,7 @@ package aes
 
 // Function computeSingleColumn takes a single 4-byte column
 // and performs the AES MisColumn matrix multiplication.
-// Matrix multiplication and addition is done in GF(2^8).
+// Matrix multiplication and addition is done in GF(2⁸).
 func computeSingleColumn(column *[4]byte) {
 	a := *column
 
