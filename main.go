@@ -21,17 +21,7 @@ func main() {
 		0x09, 0xcf, 0x4f, 0x3c,
 	}
 
-	traceA := aes.EncryptWithTrace(plaintext, key)
+	test := aes.AvalancheExperiment(plaintext, key, 999)
 
-	modified := plaintext
-
-	modified[0] ^= 0x01
-
-	traceB := aes.EncryptWithTrace(modified, key)
-
-	diff := aes.CompareTraces(traceA, traceB)
-
-	metrics := aes.AnalyzeTraceDiffusion(diff)
-
-	aesviz.PrintTraceDiffusionMetrics(metrics)
+	aesviz.PrintAvalancheStatistics(test)
 }
