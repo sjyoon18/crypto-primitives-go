@@ -61,3 +61,7 @@ func subBytes(state *State) {
 func invSubBytes(state *State) {
 	sub(state, invSBox)
 }
+
+func SubstituteByte(b byte) byte {
+	return sBox[b]
+}

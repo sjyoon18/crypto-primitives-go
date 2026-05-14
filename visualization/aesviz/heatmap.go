@@ -29,19 +29,30 @@ func PrintBitHeatmap(
 	diff aes.StateDifference,
 	option HeatmapOptions,
 ) {
-	for r := 0; r < 4; r++ {
-		for c := 0; c < 4; c++ {
-			if option.Symbols {
-				fmt.Printf("%s", heatSymbol(diff.ChangedBits[r][c]))
-			} else {
-				fmt.Printf("%2d ", diff.ChangedBits[r][c])
+	if option.Symbols {
+		for r := 0; r < 4; r++ {
+			for c := 0; c < 4; c++ {
+				fmt.Print(heatSymbol(diff.ChangedBits[r][c]))
 			}
+			fmt.Println()
 		}
-		fmt.Println()
+	} else {
+		printUint8Matrix(
+			diff.ChangedBits,
+			"%2d ",
+		)
+	}
+
+	if option.ShowTotals {
+		fmt.Printf(
+			"Total: %d bits, %d bytes\n",
+			diff.BitDifferences,
+			diff.ByteDifferences,
+		)
 	}
 }
 
-// Function PrintRoundHeatmap prints AES diffusion heatmaps for each round.
+// Function PrintRoundHeatmaps prints AES diffusion heatmaps for each round.
 func PrintRoundHeatmaps(
 	traceDiff aes.EncryptionTraceDifference,
 	options HeatmapOptions,
@@ -62,7 +73,7 @@ func PrintRoundHeatmaps(
 		PrintBitHeatmap(roundDiff.AfterShiftRows, options)
 
 		if roundDiff.Round != 10 {
-			printSection("After MixColumns")
+			printSection("After MixColumns:")
 			PrintBitHeatmap(roundDiff.AfterMixColumns, options)
 		}
 

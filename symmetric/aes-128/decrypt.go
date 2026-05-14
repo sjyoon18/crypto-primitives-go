@@ -2,8 +2,8 @@ package aes
 
 // Function DecryptBlock applies AES-128 decryption on a 16-byte ciphertext
 // with the given 16-byte key and returns the 16-byte plaintext.
-func Decrypt(ciphertext [16]byte, key [16]byte) [16]byte {
-	state := BytesToState(ciphertext)
+func DecryptBlock(ciphertext [16]byte, key [16]byte) [16]byte {
+	state := bytesToState(ciphertext)
 	roundKeys := roundKeys(key)
 
 	// Round 10
@@ -22,5 +22,5 @@ func Decrypt(ciphertext [16]byte, key [16]byte) [16]byte {
 	invSubBytes(&state)
 	addRoundKeyState(&state, wordsToState(roundKeys[0:4]))
 
-	return StateToBytes(state)
+	return stateToBytes(state)
 }

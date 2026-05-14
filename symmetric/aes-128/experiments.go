@@ -55,6 +55,8 @@ func FlipPlaintextBit(
 	return modified
 }
 
+// Function RunSingleBitFlipExperiment introduces a bit-flip at bitPosition,
+// traces both the original and modified plaintext, and compares their diffusion.
 func RunSingleBitFlipExperiment(
 	plaintext [16]byte,
 	key [16]byte,

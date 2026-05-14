@@ -1,7 +1,7 @@
 package aes
 
 func EncryptWithTrace(plaintext [16]byte, key [16]byte) EncryptionTrace {
-	state := BytesToState(plaintext)
+	state := bytesToState(plaintext)
 	rKeys := roundKeys(key)
 
 	trace := EncryptionTrace{

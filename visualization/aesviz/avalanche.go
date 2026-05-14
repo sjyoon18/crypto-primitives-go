@@ -8,8 +8,7 @@ import (
 func PrintSingleBitFlipAvalanche(exp aes.SingleBitFlipExperiment) {
 	diff := exp.Difference
 
-	fmt.Println("AES Single-Bit Avalnche Experiment")
-	fmt.Println("====================================")
+	printTitle("AES Single-Bit Avalanche Experiment")
 
 	fmt.Printf(
 		"Flipped plaintext bit: %d\n",

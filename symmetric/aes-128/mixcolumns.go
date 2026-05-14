@@ -1,7 +1,7 @@
 package aes
 
 // Function computeSingleColumn takes a single 4-byte column
-// and performs the AES MisColumn matrix multiplication.
+// and performs the AES MixColumn matrix multiplication.
 // Matrix multiplication and addition is done in GF(2⁸).
 func computeSingleColumn(column *[4]byte) {
 	a := *column
@@ -34,7 +34,7 @@ func mixColumns(state *State) {
 }
 
 // Function invComputeSingleColumn takes a single 4-byte column
-// and performs the inverse of the AES MisColumn matrix multiplication.
+// and performs the inverse of the AES MixColumn matrix multiplication.
 func invComputeSingleColumn(col *[4]byte) {
 	a := *col
 
@@ -63,4 +63,12 @@ func invMixColumns(state *State) {
 		state[2][c] = referenceCol[2]
 		state[3][c] = referenceCol[3]
 	}
+}
+
+// Function MixSingleColumns returns the MixColumns result
+// of the single 4-byte AES column input.
+func MixSingleColumn(column [4]byte) [4]byte {
+	mixed := column
+	computeSingleColumn(&mixed)
+	return mixed
 }

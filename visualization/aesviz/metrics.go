@@ -17,7 +17,7 @@ func PrintTraceDiffusionMetrics(metrics aes.TraceDiffusionMetrics) {
 	)
 
 	fmt.Printf(
-		"After initial AddRoundKey:		%3d bits (%.2f%%\n\n)",
+		"After initial AddRoundKey:		%3d bits (%.2f%%)\n\n",
 		metrics.InitialAddRoundKeyBits,
 		metrics.InitialAddRoundKeyRatio*100,
 	)

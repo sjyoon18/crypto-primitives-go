@@ -8,9 +8,3 @@ func addRoundKeyState(state *State, roundKey State) {
 		}
 	}
 }
-
-// Function AddRoundKey XORs the AES state with the round key in a given round.
-func AddRoundKey(state *State, word []Word, round int) {
-	roundKey := wordsToState(word[4*round : 4*(round+1)])
-	addRoundKeyState(state, roundKey)
-}

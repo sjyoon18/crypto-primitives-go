@@ -17,24 +17,17 @@ func PrintStateDifference(diff aes.StateDifference) {
 	)
 
 	fmt.Println("\nChanged bytes:")
-	for r := 0; r < 4; r++ {
-		for c := 0; c < 4; c++ {
-			if diff.ChangedBytes[r][c] {
-				fmt.Printf(" * ")
-			} else {
-				fmt.Printf(" . ")
-			}
-		}
-		fmt.Println()
-	}
+	printBoolMatrix(
+		diff.ChangedBytes,
+		" * ",
+		" . ",
+	)
 
 	fmt.Println("\nBit changed per byte:")
-	for r := 0; r < 4; r++ {
-		for c := 0; c < 4; c++ {
-			fmt.Printf(" %d ", diff.ChangedBits[r][c])
-		}
-		fmt.Println()
-	}
+	printUint8Matrix(
+		diff.ChangedBits,
+		" %d ",
+	)
 }
 
 // Function PrintRoundDifference displays diffusion

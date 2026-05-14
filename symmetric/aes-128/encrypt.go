@@ -3,7 +3,7 @@ package aes
 // Function EncryptBlock applies AES-128 encryption on a 16-byte plaintext
 // with the given 16-byte key and returns the 16-byte ciphertext.
 func EncryptBlock(plaintext [16]byte, key [16]byte) [16]byte {
-	state := BytesToState(plaintext)
+	state := bytesToState(plaintext)
 	rKeys := roundKeys(key)
 
 	// Round 0
@@ -22,5 +22,5 @@ func EncryptBlock(plaintext [16]byte, key [16]byte) [16]byte {
 	shiftRows(&state)
 	addRoundKeyState(&state, wordsToState(rKeys[40:44]))
 
-	return StateToBytes(state)
+	return stateToBytes(state)
 }

@@ -6,8 +6,7 @@ import (
 )
 
 func PrintAvalancheStatistics(stats aes.AvalancheStatistics) {
-	fmt.Println("AES Avalanche Statistics")
-	fmt.Println("==========================")
+	printTitle("AES Avalanche Statistics")
 
 	fmt.Printf(
 		"Number of samples: %d\n",
