@@ -48,9 +48,6 @@ func EncryptWithTrace(plaintext [16]byte, key [16]byte) EncryptionTrace {
 	shiftRows(&state)
 	final.AfterShiftRows = state.Copy()
 
-	mixColumns(&state)
-	final.AfterMixColumns = state.Copy()
-
 	addRoundKeyState(&state, final.RoundKey)
 	final.AfterAddRoundKey = state.Copy()
 

@@ -5,9 +5,10 @@ import (
 	"fmt"
 )
 
+// Function PrintTraceDiffusionMetrics displays the bit diffusion progression
+// throughout the AES encryption trace comparison.
 func PrintTraceDiffusionMetrics(metrics aes.TraceDiffusionMetrics) {
-	fmt.Println("AES Diffusion Metrics")
-	fmt.Println("=======================")
+	printTitle("AES Diffusion Metrics")
 
 	fmt.Printf(
 		"Plaintext difference:			%3d bits (%.2f%%)\n",
@@ -16,13 +17,13 @@ func PrintTraceDiffusionMetrics(metrics aes.TraceDiffusionMetrics) {
 	)
 
 	fmt.Printf(
-		"After inital key addition:		%3d bits (%.2f%%\n\n)",
+		"After initial AddRoundKey:		%3d bits (%.2f%%\n\n)",
 		metrics.InitialAddRoundKeyBits,
 		metrics.InitialAddRoundKeyRatio*100,
 	)
 
 	for _, round := range metrics.Rounds {
-		fmt.Printf("Round %2d\n", round.Round)
+		printRoundHeader(round.Round)
 		fmt.Printf(
 
 			"  Start:          %3d bits (%.2f%%)\n",

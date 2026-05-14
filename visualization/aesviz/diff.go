@@ -40,40 +40,39 @@ func PrintStateDifference(diff aes.StateDifference) {
 // Function PrintRoundDifference displays diffusion
 // growth throughout an AES round.
 func PrintRoundDifference(rdiff aes.RoundDifference) {
-	fmt.Printf("\n====== Round %d ======\n", rdiff.Round)
+	printRoundHeader(rdiff.Round)
 
-	fmt.Println("\nStart State:")
+	printSection("Start State:")
 	PrintStateDifference(rdiff.StartState)
 
-	fmt.Println("\nAfter Subbytes:")
+	printSection("After SubBytes:")
 	PrintStateDifference(rdiff.AfterSubBytes)
 
-	fmt.Println("\nAfter ShiftRows:")
+	printSection("After ShiftRows:")
 	PrintStateDifference(rdiff.AfterShiftRows)
 
 	if rdiff.Round != 10 {
-		fmt.Println("\nAfter MixColumns:")
+		printSection("After MixColumns:")
 		PrintStateDifference(rdiff.AfterMixColumns)
 	}
 
-	fmt.Println("\nAfter AddRoundKey:")
+	printSection("After AddRoundKey:")
 	PrintStateDifference(rdiff.AfterAddRoundKey)
 }
 
 func PrintTraceDifference(diff aes.EncryptionTraceDifference) {
-	fmt.Println("AES Differential Trace")
-	fmt.Println("========================")
+	printTitle("AES Differential Trace")
 
-	fmt.Println("\nPlaintext Difference:")
+	printSection("Plaintext Difference:")
 	PrintStateDifference(diff.PlaintextDifference)
 
-	fmt.Println("\nAfter Initial Key Addition:")
+	printSection("After Initial AddRoundKey:")
 	PrintStateDifference(diff.InitialAddRoundKeyDifference)
 
 	for _, round := range diff.Rounds {
 		PrintRoundDifference(round)
 	}
 
-	fmt.Println("\nCiphertext Difference:")
+	printSection("Ciphertext Difference:")
 	PrintStateDifference(diff.CiphertextDifference)
 }

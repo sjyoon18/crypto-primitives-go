@@ -2,74 +2,44 @@ package aesviz
 
 import (
 	aes "crypto-primitives-go/symmetric/aes-128"
-	"fmt"
 )
 
 func PrintTrace(trace aes.EncryptionTrace) {
-	fmt.Println("AES-128 Encryption")
-	fmt.Println("====================")
+	printTitle("AES-128 Encryption Trace")
 
-	fmt.Println("\nPlaintext State:")
+	printSection("Plaintext State:")
 	PrintState(trace.Plaintext)
 
-	fmt.Println("After Initial Key Addition:")
+	printSection("After Initial Key Addition:")
 	PrintState(trace.InitialAddRoundKey)
 
 	for _, round := range trace.Rounds {
-		fmt.Printf("\n========== ROUND %d ==========\n", round.Round)
-
-		fmt.Printf("\nStart State:")
-		PrintState(round.StartState)
-
-		fmt.Printf("Round Key:")
-		PrintState(round.RoundKey)
-
-		fmt.Printf("After SubBytes:")
-		PrintState(round.AfterSubBytes)
-
-		fmt.Printf("After ShiftRows:")
-		PrintState(round.AfterShiftRows)
-
-		if round.Round != 10 {
-			fmt.Printf("After MixColumns:")
-			PrintState(round.AfterMixColumns)
-		}
-		fmt.Printf("After AddRoundKey:")
-		PrintState(round.AfterAddRoundKey)
+		PrintRoundTrace(round)
 	}
 
-	fmt.Printf("\nCiphertext State:")
+	printSection("Ciphertext State:")
 	PrintState(trace.Ciphertext)
 }
 
-/*
-trace := aes.EncryptWithTrace(
-	plaintext,
-	key,
-)
-
-aesviz.PrintTrace(trace)
-*/
-
 func PrintRoundTrace(round aes.RoundTrace) {
-	fmt.Printf("\n========== ROUND %d ==========\n", round.Round)
+	printRoundHeader(round.Round)
 
-	fmt.Printf("\nStart State:")
+	printSection("Start State:")
 	PrintState(round.StartState)
 
-	fmt.Printf("Round Key:")
+	printSection("Round Key:")
 	PrintState(round.RoundKey)
 
-	fmt.Printf("After SubBytes:")
+	printSection("After SubBytes:")
 	PrintState(round.AfterSubBytes)
 
-	fmt.Printf("After ShiftRows:")
+	printSection("After ShiftRows:")
 	PrintState(round.AfterShiftRows)
 
 	if round.Round != 10 {
-		fmt.Printf("After MixColumns:")
+		printSection("After MixColumns:")
 		PrintState(round.AfterMixColumns)
 	}
-	fmt.Printf("After AddRoundKey:")
+	printSection("After AddRoundKey:")
 	PrintState(round.AfterAddRoundKey)
 }

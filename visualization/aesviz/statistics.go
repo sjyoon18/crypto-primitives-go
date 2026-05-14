@@ -32,10 +32,17 @@ func PrintAvalancheStatistics(stats aes.AvalancheStatistics) {
 	fmt.Println("\nAverage round diffusion:")
 
 	for i, val := range stats.AverageRoundDiffusion {
-		fmt.Printf(
-			"Round %-2d: %.2f bits\n",
-			i,
-			val,
-		)
+		if i == 0 {
+			fmt.Printf(
+				"Round 0 (Initial AddRoundKey): %.2f bits\n",
+				val,
+			)
+		} else {
+			fmt.Printf(
+				"Round %-2d: %.2f bits\n",
+				i,
+				val,
+			)
+		}
 	}
 }

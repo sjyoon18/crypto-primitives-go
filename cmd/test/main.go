@@ -21,7 +21,18 @@ func main() {
 		0x09, 0xcf, 0x4f, 0x3c,
 	}
 
-	test := aes.AvalancheExperiment(plaintext, key, 999)
+	exp := aes.RunSingleBitFlipExperiment(
 
-	aesviz.PrintAvalancheStatistics(test)
+		plaintext,
+		key,
+		0,
+	)
+	aesviz.PrintSingleBitFlipAvalanche(exp)
+	aesviz.PrintRoundHeatmaps(
+		exp.Difference,
+		aesviz.HeatmapOptions{
+			Symbols:    true,
+			ShowTotals: false,
+		},
+	)
 }
