@@ -1,0 +1,90 @@
+package modes
+
+import (
+	"bytes"
+	"testing"
+)
+
+// Function TestEncryptDecryptCBC verifies that CBC decryption
+// reverses CBC encryption.
+func TestEncryptDecryptCBC(t *testing.T) {
+	plaintext := []byte("test message: hello CBC mode!")
+
+	testKey := [16]byte{
+		0x00, 0x01, 0x02, 0x03,
+		0x04, 0x05, 0x06, 0x07,
+		0x08, 0x09, 0x0a, 0x0b,
+		0x0c, 0x0d, 0x0e, 0x0f,
+	}
+	iv := [16]byte{
+		0x10, 0x11, 0x12, 0x13,
+		0x14, 0x15, 0x16, 0x17,
+		0x18, 0x19, 0x1a, 0x1b,
+		0x1c, 0x1d, 0x1e, 0x1f,
+	}
+
+	ciphertext := EncryptCBC(plaintext, testKey, iv)
+
+	got, err := DecryptCBC(ciphertext, testKey, iv)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	if !bytes.Equal(got, plaintext) {
+		t.Fatalf(
+			"\nexpected: %x\ngot:	%x",
+			plaintext,
+			got,
+		)
+	}
+}
+
+// Function TestCBCBlockAlignment verifies that CBC ciphertext
+// is block-aligned.
+func TestCBCBlockAlignment(t *testing.T) {
+	plaintext := []byte("test message test message")
+
+	testKey := [16]byte{
+		0x00, 0x01, 0x02, 0x03,
+		0x04, 0x05, 0x06, 0x07,
+		0x08, 0x09, 0x0a, 0x0b,
+		0x0c, 0x0d, 0x0e, 0x0f,
+	}
+	iv := [16]byte{
+		0x10, 0x11, 0x12, 0x13,
+		0x14, 0x15, 0x16, 0x17,
+		0x18, 0x19, 0x1a, 0x1b,
+		0x1c, 0x1d, 0x1e, 0x1f,
+	}
+
+	ciphertext := EncryptCBC(plaintext, testKey, iv)
+
+	if len(ciphertext)%AESBlockSize != 0 {
+		t.Fatalf("ciphertext length is not block aligned")
+	}
+}
+
+// Function TestDecryptCBCInvalidLength verifies that CBC rejects
+// malformed ciphertext lengths.
+func TestDecryptCBCInvalidLength(t *testing.T) {
+	testKey := [16]byte{
+		0x00, 0x01, 0x02, 0x03,
+		0x04, 0x05, 0x06, 0x07,
+		0x08, 0x09, 0x0a, 0x0b,
+		0x0c, 0x0d, 0x0e, 0x0f,
+	}
+	iv := [16]byte{
+		0x10, 0x11, 0x12, 0x13,
+		0x14, 0x15, 0x16, 0x17,
+		0x18, 0x19, 0x1a, 0x1b,
+		0x1c, 0x1d, 0x1e, 0x1f,
+	}
+
+	invalidCiphertext := []byte{0x00, 0x01, 0x02}
+
+	_, err := DecryptCBC(invalidCiphertext, testKey, iv)
+
+	if err == nil {
+		t.Fatal("error is expected for invalid ciphertext length")
+	}
+}
