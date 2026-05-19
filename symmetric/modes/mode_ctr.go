@@ -2,6 +2,8 @@ package modes
 
 import aes "crypto-primitives-go/symmetric/aes-128"
 
+// Function buildCounterBlock builds a 16-byte AES input counter block
+// from an 8-byte nonce and an 8-byte counter.
 func buildCounterBlock(nonce [8]byte, counter uint64) [16]byte {
 	var block [16]byte
 
@@ -14,6 +16,8 @@ func buildCounterBlock(nonce [8]byte, counter uint64) [16]byte {
 	return block
 }
 
+// Function incrementCounter increments the counter portion (last 64 bits)
+// of the 16-byte counterBlock.
 func incrementCounter(counterBlock *[16]byte) {
 	for i := 15; i >= 8; i-- {
 		counterBlock[i]++
@@ -23,6 +27,8 @@ func incrementCounter(counterBlock *[16]byte) {
 	}
 }
 
+// Function ApplyCTR is the root function for encryption and decryption
+// using AES-128 in CTR mode.
 func ApplyCTR(
 	input []byte,
 	key [16]byte,
@@ -50,6 +56,7 @@ func ApplyCTR(
 	return output
 }
 
+// Function EncryptCTR encrypts plaintext in AES-128 CTR mode.
 func EncryptCTR(
 	plaintext []byte,
 	key [16]byte,
@@ -58,6 +65,7 @@ func EncryptCTR(
 	return ApplyCTR(plaintext, key, nonce)
 }
 
+// Function DecryptCTR decrypts ciphertext in AES-128 CTR mode.
 func DecryptCTR(
 	ciphertext []byte,
 	key [16]byte,

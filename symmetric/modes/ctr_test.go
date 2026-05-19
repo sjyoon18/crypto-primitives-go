@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+// Function TestEncryptDecryptCTR verifies that CTR decryption reverses CTR encryption.
 func TestEncryptDecryptCTR(t *testing.T) {
 	plaintext := []byte("test message: hello CTR mode!")
 
@@ -32,6 +33,8 @@ func TestEncryptDecryptCTR(t *testing.T) {
 	}
 }
 
+// Function TestCTRShortBlock verifies that CTR mode preserves the plaintext length
+// without padding.
 func TestCTRShortBlock(t *testing.T) {
 	plaintext := []byte("short")
 
@@ -58,6 +61,8 @@ func TestCTRShortBlock(t *testing.T) {
 	}
 }
 
+// Function TestCTRDeterministic verifies that with a given plaintext CTR mode produces
+// the same ciphertext for the same key and nonce.
 func TestCTRDeterministic(t *testing.T) {
 	plaintext := []byte("same plaintext and same nonce")
 
@@ -81,6 +86,8 @@ func TestCTRDeterministic(t *testing.T) {
 	}
 }
 
+// Function TestCTRDDifferentNonce verifies that with a given plaintext CTR mode produces
+// different ciphertexts for the same key and different nonce.
 func TestCTRDifferentNonce(t *testing.T) {
 	plaintext := []byte("same plaintext and different nonce")
 
