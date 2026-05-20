@@ -1,19 +1,8 @@
 package main
 
-import (
-	aes "crypto-primitives-go/symmetric/aes-128"
-	"crypto-primitives-go/visualization/aesviz"
-)
+import ecbattack "crypto-primitives-go/attacks/ecb"
 
 func main() {
-
-	plaintext := [16]byte{
-		0x32, 0x43, 0xf6, 0xa8,
-		0x88, 0x5a, 0x30, 0x8d,
-		0x31, 0x31, 0x98, 0xa2,
-		0xe0, 0x37, 0x07, 0x34,
-	}
-
 	key := [16]byte{
 		0x2b, 0x7e, 0x15, 0x16,
 		0x28, 0xae, 0xd2, 0xa6,
@@ -21,18 +10,12 @@ func main() {
 		0x09, 0xcf, 0x4f, 0x3c,
 	}
 
-	exp := aes.RunSingleBitFlipExperiment(
+	plaintext := []byte(
+		"SixteenByteBlock" +
+			"SixteenByteBlock" +
+			"DifferentBlock!!" +
+			"SixteenByteBlock",
+	)
 
-		plaintext,
-		key,
-		0,
-	)
-	aesviz.PrintSingleBitFlipAvalanche(exp)
-	aesviz.PrintRoundHeatmaps(
-		exp.Difference,
-		aesviz.HeatmapOptions{
-			Symbols:    true,
-			ShowTotals: false,
-		},
-	)
+	ecbattack.PrintECBLeakageDemo(plaintext, key)
 }
