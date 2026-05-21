@@ -62,10 +62,14 @@ func DetectRepeatedBlocks(data []byte, blockSize int) []BlockFrequency {
 	return repeated
 }
 
+// Function HasECBLeakage returns a boolean value of whether the ciphertext
+// contains repeated blocks.
 func HasECBLeakage(ciphertext []byte, blockSize int) bool {
 	return len(DetectRepeatedBlocks(ciphertext, blockSize)) > 0
 }
 
+// Function DemonstrateECBLeakage encrypts plaintext with ECB and detects
+// repeated ciphertext blocks.
 func DemonstrateECBLeakage(plaintext []byte, key [16]byte) ([]byte, []BlockFrequency) {
 	ciphertext := modes.EncryptECB(plaintext, key)
 	repeated := DetectRepeatedBlocks(ciphertext, modes.AESBlockSize)

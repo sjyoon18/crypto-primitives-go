@@ -1,6 +1,6 @@
 package modes
 
-// Function xorBlocks returns the XOR value of two byte blocks.
+// Function xorBlocks returns the XOR value of two byte blocks of equal length.
 func xorBlocks(a, b []byte) []byte {
 	if len(a) != len(b) {
 		panic("blocks must have equal length")

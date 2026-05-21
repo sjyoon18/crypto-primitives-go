@@ -1,6 +1,6 @@
 package main
 
-import ecbattack "crypto-primitives-go/attacks/ecb"
+import ctrattack "crypto-primitives-go/attacks/ctr"
 
 func main() {
 	key := [16]byte{
@@ -9,13 +9,13 @@ func main() {
 		0xab, 0xf7, 0x15, 0x88,
 		0x09, 0xcf, 0x4f, 0x3c,
 	}
+	nonce := [8]byte{
+		0x10, 0x11, 0x12, 0x13,
+		0x14, 0x15, 0x16, 0x17,
+	}
 
-	plaintext := []byte(
-		"SixteenByteBlock" +
-			"SixteenByteBlock" +
-			"DifferentBlock!!" +
-			"SixteenByteBlock",
-	)
+	p1 := []byte("plaintext one")
+	p2 := []byte("plaintext two plaintext two")
 
-	ecbattack.PrintECBLeakageDemo(plaintext, key)
+	ctrattack.PrintNonceReuseDemo(p1, p2, key, nonce)
 }
