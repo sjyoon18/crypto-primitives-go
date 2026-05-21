@@ -27,7 +27,5 @@ func PrintNonceReuseDemo(
 	fmt.Printf("\nP1 XOR P2: %s\n", hex.EncodeToString(xorByteSlices(p1, p2)))
 	fmt.Printf("C1 XOR C2: %s\n", hex.EncodeToString(xored))
 
-	fmt.Println("\nInformation is leaked:")
-	fmt.Println("Reusing the same nonce in CTR mode reuses the same keystream and causes")
-	fmt.Println("C1 XOR C2 to equal P1 XOR P2.")
+	fmt.Println("\nCTR nonce reuse detected.")
 }
