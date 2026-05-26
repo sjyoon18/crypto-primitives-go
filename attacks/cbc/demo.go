@@ -52,10 +52,10 @@ func PrintCBCBitFlipDemo(
 		SplitBlocks(modified, modes.AESBlockSize),
 	)
 
-	fmt.Println("\nModified plaintext blocks (%q):")
+	fmt.Println("\nModified plaintext blocks (quoted):")
 	printBlocksQuoted(SplitBlocks(modifiedPlaintext, modes.AESBlockSize))
 
-	fmt.Println("\nModified plaintext blocks (%s):")
+	fmt.Println("\nModified plaintext blocks (string):")
 	printBlocksString(SplitBlocks(modifiedPlaintext, modes.AESBlockSize))
 
 	fmt.Println("\nCBC plaintext modification successful.")
