@@ -2,7 +2,9 @@
 
 A cryptography-focused Go project implementing symmetric cryptographic primitives from scratch, with an emphasis on transparency, diffusion analysis, visualization, and educational tooling.
 
-This repository currently focuses on AES-128 internals and includes:
+This repository currently focuses on symmetric cryptography, block cipher modes, cryptographic attack demonstrations, and educational cryptographic tooling.
+
+Current functionality includes:
 - full AES encryption/decryption,
 - round-by-round trace generation,
 - avalanche-effect experiments,
@@ -23,6 +25,19 @@ Implemented fully from scratch in Go:
 - ShiftRows / InvShiftRows
 - MixColumns / InvMixColumns
 - GF(2⁸) arithmetic
+
+## Block Cipher Modes
+Implemented AES block cipher modes:
+- ECB
+- CBC
+- CTR
+- PKCS#7 padding
+
+Includes:
+- encryption/decryption
+- mode validation tests,
+- block alignment checks,
+- padding validation.
 
 ## AES Trace System
 Round-by-round tracing of AES internals:
@@ -52,6 +67,26 @@ Utilities for visualizing AES behavior:
 - S-box byte substitution,
 - MixColumns transformations.
 
+## Attack Demonstrations
+
+Includes practical demonstrations of common cryptographic vulnerabilities and mode misuse.
+
+### ECB
+- repeated-block leakage
+- structural ciphertext analysis
+
+### CTR
+- nonce reuse attack
+- plaintext XOR recovery
+
+### CBC
+- bit-flipping attack
+- controlled plaintext manipulation
+
+### Padding Oracle
+- CBC padding oracle
+- byte-by-byte plaintext recovery using oracle queries
+
 ## Verification Tests
 Includes correctness tests using official FIPS-197 vectors:
 - AES encryption/decryption
@@ -70,18 +105,14 @@ crypto-primitives-go/
 │
 ├── symmetric/
 │   ├── aes-128/
-│   │   ├── encrypt.go
-│   │   ├── decrypt.go
-│   │   ├── subbytes.go
-│   │   ├── shiftrows.go
-│   │   ├── mixcolumns.go
-│   │   ├── roundkeys.go
-│   │   ├── trace.go
-│   │   ├── experiments.go
-│   │   ├── metrics.go
-│   │   └── *_test.go
-│   │
-│   └── des/
+│   ├── des/
+|   └── modes/
+│
+├── attacks/
+│   ├── ecb/
+│   ├── ctr/
+│   ├── cbc/
+│   └── oracle/
 │
 ├── visualization/
 │   ├── aesviz/
@@ -162,6 +193,7 @@ All AES correctness tests are verified against official FIPS-197 examples.
 # Educational Focus
 
 This repository is intentionally designed to expose AES internals clearly rather than prioritizing optimization or production deployment.
+The repository also emphasizes cryptographic misuse, attack demonstrations, and protocol-level security failures in addition to primitive implementation.
 
 The goal is to build:
 - cryptographic intuition,
@@ -173,15 +205,16 @@ The goal is to build:
 # Future Work
 
 Planned additions include:
-- AES block cipher modes (CBC / CTR / GCM)
+- GCM authenticated encryption
 - SHA-256 implementation
 - HMAC implementation
+- authenticated protocol demonstrations
 - DES analysis tooling
 - differential cryptanalysis experiments
 - serialization / JSON export
 - benchmark tooling
 - Rust/C implementations for comparison
-
+- networking/security demonstrations
 ---
 
 # References
@@ -196,6 +229,3 @@ Planned additions include:
 # Disclaimer
 
 This repository is intended for educational and research purposes.
-
-Do not use these implementations directly in production systems.
-Use well-audited cryptographic libraries for real-world applications.
