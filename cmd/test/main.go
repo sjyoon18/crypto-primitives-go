@@ -1,7 +1,7 @@
 package main
 
 import (
-	cbcattack "crypto-primitives-go/attacks/cbc"
+	oracleattack "crypto-primitives-go/attacks/oracle"
 )
 
 func main() {
@@ -19,18 +19,7 @@ func main() {
 		0x1c, 0x1d, 0x1e, 0x1f,
 	}
 
-	plaintext := []byte(
-		"userID:xxxxxxxx;" +
-			"balance:0000000;",
-	)
+	plaintext := []byte("CBC padding oracle attack!")
 
-	cbcattack.PrintCBCBitFlipDemo(
-		plaintext,
-		key,
-		iv,
-		1,
-		8,
-		[]byte("0000000;"),
-		[]byte("9999999;"),
-	)
+	oracleattack.PrintOracleDemo(plaintext, key, iv)
 }
